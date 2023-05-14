@@ -1,4 +1,4 @@
-package com.example.projecmad;
+package com.example.projecmad.RetrofitConfigration;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

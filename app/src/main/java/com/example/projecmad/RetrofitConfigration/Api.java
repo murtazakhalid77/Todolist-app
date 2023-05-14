@@ -1,4 +1,4 @@
-package com.example.projecmad;
+package com.example.projecmad.RetrofitConfigration;
 
 
 import com.example.projecmad.Model.listsName;
@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 
 public interface Api {
 
-    String BASE_URL = "https://d854-202-47-53-142.ngrok-free.app/api/";
+    String BASE_URL = "https://7c5b-202-47-53-142.ngrok-free.app/api/";
     @GET("list/getAll")
     Call<List<listsName>> getAlllistNames();
 
