@@ -81,6 +81,8 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         tvTime.setVisibility(View.GONE);      //time text view and images not visible
         btPickTime.setVisibility(View.GONE);
 
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.getListNames();
         backbuttonImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

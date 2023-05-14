@@ -44,20 +44,23 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getListNames() {
+    public List<listsName> getListNames() {
         Call<List<listsName>> call = RetrofitClient.getInstance().getMyApi().getAlllistNames();
+        List<listsName> myheroList = new ArrayList<>();
         call.enqueue(new Callback<List<listsName>>() {
             @Override
             public void onResponse(Call<List<listsName>> call, Response<List<listsName>> response) {
-                List<listsName> myheroList = new ArrayList<>();
-               // myheroList.add(new listsName(1L,"select Anything"));
+
+                myheroList.add(new listsName(1L,"select Anything"));
                  myheroList.addAll(response.body());
+
                 String[] oneHeroes = new String[myheroList.size()];
                 for (int i = 0; i < myheroList.size(); i++) {
                     oneHeroes[i] = myheroList.get(i).getName();
                 }
 
                 spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, oneHeroes));
+
             }
 
             @Override
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+       return myheroList;
     }
+
 }
 
