@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinner = findViewById(R.id.dropdown_menu);
+        spinner = findViewById(R.id.dropdown_menu_list);
         button = (Button) findViewById(R.id.newtask);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,23 +37,22 @@ public class MainActivity extends AppCompatActivity {
                 openNewTaskPage ();
             }
         });
-//        getSuperHeroes();
+        getListNames();
     }
     public void openNewTaskPage(){
         Intent intent = new Intent(this, NewTask.class);
         startActivity(intent);
     }
 
-    private void getSuperHeroes() {
+    public void getListNames() {
         Call<List<listsName>> call = RetrofitClient.getInstance().getMyApi().getAlllistNames();
         call.enqueue(new Callback<List<listsName>>() {
             @Override
             public void onResponse(Call<List<listsName>> call, Response<List<listsName>> response) {
                 List<listsName> myheroList = new ArrayList<>();
-                myheroList.add(new listsName(1L,"select Anything"));
+               // myheroList.add(new listsName(1L,"select Anything"));
                  myheroList.addAll(response.body());
                 String[] oneHeroes = new String[myheroList.size()];
-
                 for (int i = 0; i < myheroList.size(); i++) {
                     oneHeroes[i] = myheroList.get(i).getName();
                 }

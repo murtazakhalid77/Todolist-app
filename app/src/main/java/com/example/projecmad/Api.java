@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 
 public interface Api {
 
-    String BASE_URL = "https://24ca-202-47-53-142.ngrok-free.app/api/";
+    String BASE_URL = "https://f68f-202-47-53-142.ngrok-free.app/";
     @GET("list/getAll")
     Call<List<listsName>> getAlllistNames();
 

@@ -8,7 +8,7 @@
     tools:context=".NewTask">
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/taskCommentTv"
         android:layout_width="383dp"
         android:layout_height="40dp"
         android:layout_marginTop="132dp"
@@ -19,9 +19,9 @@
         android:clickable="true"
         android:contextClickable="true"
         android:ems="10"
+        android:hint="Enter Comment Here"
         android:inputType="textPersonName"
         android:singleLine="false"
-        android:text="Enter Comment Here"
         android:textColor="#B88D8D"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,49 +33,46 @@
         android:id="@+id/dateTv"
         android:layout_width="341dp"
         android:layout_height="39dp"
-        android:layout_marginTop="232dp"
         android:autoSizeTextType="none"
         android:backgroundTint="#00E3F8"
-        android:backgroundTintMode="add"
+        android:backgroundTintMode="src_in"
         android:capitalize="words"
         android:clickable="true"
         android:contextClickable="true"
         android:ems="10"
         android:inputType="textPersonName"
         android:singleLine="false"
-        android:textColor="#B88D8D"
+        android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
-        android:tooltipText="hhh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/taskCommentTv"
+        app:layout_constraintVertical_bias="0.062" />
 
     <EditText
         android:id="@+id/timetv"
-        android:layout_width="341dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="232dp"
+        android:layout_width="304dp"
+        android:layout_height="33dp"
         android:autoSizeTextType="none"
         android:backgroundTint="#00E3F8"
-        android:backgroundTintMode="add"
+        android:backgroundTintMode="src_in"
         android:capitalize="words"
         android:clickable="true"
         android:contextClickable="true"
         android:ems="10"
         android:inputType="textPersonName"
         android:singleLine="false"
-        android:textColor="#B88D8D"
-        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
         android:tooltipText="hhh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-        app:layout_constraintVertical_bias="0.149" />
+        app:layout_constraintTop_toBottomOf="@+id/dateTv"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView4"
@@ -83,10 +80,9 @@
         android:layout_height="27dp"
         android:layout_marginTop="16dp"
         android:text="What is to be done?"
-        android:textAlignment="center"
         android:textColor="#00E3F8"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/taskNameTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,20 +151,52 @@
         android:id="@+id/textView5"
         android:layout_width="134dp"
         android:layout_height="27dp"
-        android:layout_marginTop="192dp"
+        android:gravity="bottom"
         android:text="Due Date"
-        android:textAlignment="textStart"
+        android:textAlignment="gravity"
         android:textColor="#00E3F8"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/dateTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintTop_toBottomOf="@+id/taskCommentTv"
+        app:layout_constraintVertical_bias="0.212" />
+
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="134dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="68dp"
+        android:gravity="bottom"
+        android:text="Add to List"
+        android:textAlignment="gravity"
+        android:textColor="#00E3F8"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timetv" />
+
+    <Spinner
+        android:id="@+id/dropdown_menu_list"
+        android:layout_width="130dp"
+        android:layout_height="32dp"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/taskNameTv"
         android:layout_width="383dp"
         android:layout_height="40dp"
         android:layout_marginTop="48dp"
@@ -179,9 +207,8 @@
         android:clickable="true"
         android:contextClickable="true"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:hint="Enter Task Here"
         android:singleLine="false"
-        android:text="Enter Task Here"
         android:textColor="#B88D8D"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -190,43 +217,41 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status"
-        android:textColorHint="#00E3F8"
-        android:textColorLink="#00E3F8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
+    <ImageView
         android:id="@+id/calenderBtn"
-        android:layout_width="41dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="34dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toEndOf="@+id/dateTv"
+        app:layout_constraintTop_toTopOf="@+id/dateTv"
+        app:srcCompat="@drawable/calendar" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/timeBtn"
-        android:layout_width="41dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="39dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-        app:layout_constraintVertical_bias="0.154"
-        app:srcCompat="?attr/actionModePasteDrawable" />
+        app:layout_constraintTop_toBottomOf="@+id/calenderBtn"
+        app:layout_constraintVertical_bias="0.043"
+        app:srcCompat="@drawable/clock" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="75dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeBtn"
+        app:layout_constraintVertical_bias="0.879"
+        app:srcCompat="@drawable/yellowtick" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
