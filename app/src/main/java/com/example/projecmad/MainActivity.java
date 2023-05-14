@@ -11,6 +11,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.projecmad.Model.listsName;
+import com.example.projecmad.RetrofitConfigration.RetrofitClient;
+import com.example.projecmad.Service.ListService;
+import com.example.projecmad.Utils.MyArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinner = findViewById(R.id.dropdown_menu_list);
+        spinner = (Spinner) findViewById(R.id.dropdown_menu_list);
         button = (Button) findViewById(R.id.newtask);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,40 +40,22 @@ public class MainActivity extends AppCompatActivity {
                 openNewTaskPage ();
             }
         });
-        getListNames();
+
+        if (spinner != null) {
+//             Create the ArrayAdapter with the appropriate context
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,new ListService().getListNames());
+            ListService listService = new ListService();
+            MyArrayAdapter adapter = new MyArrayAdapter(this,listService);
+//             Set the adapter for the spinner
+            spinner.setAdapter(adapter);
+        }
     }
     public void openNewTaskPage(){
         Intent intent = new Intent(this, NewTask.class);
         startActivity(intent);
     }
 
-    public List<listsName> getListNames() {
-        Call<List<listsName>> call = RetrofitClient.getInstance().getMyApi().getAlllistNames();
-        List<listsName> myheroList = new ArrayList<>();
-        call.enqueue(new Callback<List<listsName>>() {
-            @Override
-            public void onResponse(Call<List<listsName>> call, Response<List<listsName>> response) {
 
-                myheroList.add(new listsName(1L,"select Anything"));
-                 myheroList.addAll(response.body());
-
-                String[] oneHeroes = new String[myheroList.size()];
-                for (int i = 0; i < myheroList.size(); i++) {
-                    oneHeroes[i] = myheroList.get(i).getName();
-                }
-
-                spinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, oneHeroes));
-
-            }
-
-            @Override
-            public void onFailure(Call<List<listsName>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "An error has occured", Toast.LENGTH_LONG).show();
-            }
-
-        });
-       return myheroList;
-    }
 
 }
 

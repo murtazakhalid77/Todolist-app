@@ -7,11 +7,14 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
+import com.example.projecmad.Service.ListService;
+import com.example.projecmad.Utils.DatePicker;
+import com.example.projecmad.Utils.MyArrayAdapter;
+import com.example.projecmad.Utils.TimePicker;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -25,43 +28,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     ImageView btPickTime;
     Spinner spinner;
 
-    private TimePickerDialog.OnTimeSetListener timePickerDialogListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                    // logic to properly handle
-                    // the picked timings by user
-                    String formattedTime;
-                    if (hourOfDay == 0) {
-                        if (minute < 10) {
-                            formattedTime = hourOfDay + 12 + ":0" + minute + " am";
-                        } else {
-                            formattedTime = hourOfDay + 12 + ":" + minute + " am";
-                        }
-                    } else if (hourOfDay > 12) {
-                        if (minute < 10) {
-                            formattedTime = hourOfDay - 12 + ":0" + minute + " pm";
-                        } else {
-                            formattedTime = hourOfDay - 12 + ":" + minute + " pm";
-                        }
-                    } else if (hourOfDay == 12) {
-                        if (minute < 10) {
-                            formattedTime = hourOfDay + ":0" + minute + " pm";
-                        } else {
-                            formattedTime = hourOfDay + ":" + minute + " pm";
-                        }
-                    } else {
-                        if (minute < 10) {
-                            formattedTime = hourOfDay + ":" + minute + " am";
-                        } else {
-                            formattedTime = hourOfDay + ":" + minute + " am";
-                        }
-                    }
-
-                    tvTime.setText(formattedTime);
-                }
-            };
 
     private void openMainPage() {
         Intent intent = new Intent(this,MainActivity.class);
@@ -81,8 +47,11 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         tvTime.setVisibility(View.GONE);      //time text view and images not visible
         btPickTime.setVisibility(View.GONE);
 
-        MainActivity mainActivity = new MainActivity();
-        mainActivity.getListNames();
+//        MainActivity mainActivity = new MainActivity();
+//        mainActivity.getListNames();
+
+        TimePicker timePicker = new TimePicker(tvTime);
+
         backbuttonImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,36 +60,33 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         });
 
         btPickTime.setOnClickListener(view -> {
-            TimePickerDialog timePicker = new TimePickerDialog(
-                    // pass the Context
+            TimePickerDialog timePickerDialog = new TimePickerDialog(
                     this,
-                    // listener to perform task
-                    // when time is picked
-                    timePickerDialogListener,
-                    // default hour when the time picker
-                    // dialog is opened
-                    12,
-                    // default minute when the time picker
-                    // dialog is opened
-                    10,
-                    // 24 hours time picker is
-                    // false (varies according to the region)
+                    timePicker,
+                    Calendar.HOUR_OF_DAY,
+                    Calendar.MINUTE,
                     false
             );
-
-            // then after building the timepicker
-            // dialog show the dialog to user
-            timePicker.show();
+            timePickerDialog.show();
         });
         btPickDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                com.example.projecmad.Model.DatePicker mDatePickerDialogFragment;
+                DatePicker mDatePickerDialogFragment;
                 //tutorials.droid.datepicker.DatePicker mDatePickerDialogFragment;
-                mDatePickerDialogFragment = new com.example.projecmad.Model.DatePicker();
+                mDatePickerDialogFragment = new DatePicker();
                 mDatePickerDialogFragment.show(getSupportFragmentManager(), "DATE PICK");
             }
         });
+
+        if (spinner != null) {
+//             Create the ArrayAdapter with the appropriate context
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,new ListService().getListNames());
+            ListService listService = new ListService();
+            MyArrayAdapter adapter = new MyArrayAdapter(this,listService);
+//             Set the adapter for the spinner
+            spinner.setAdapter(adapter);
+        }
     }
     @Override
     public void onDateSet(android.widget.DatePicker datePicker, int year, int month, int dayOfMonth) {
