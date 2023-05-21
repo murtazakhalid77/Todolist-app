@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/status"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#274F88"
@@ -125,9 +126,9 @@
         android:id="@+id/imageView2"
         android:layout_width="49dp"
         android:layout_height="29dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toStartOf="@+id/textView"
-        android:clickable="true"
         app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -242,7 +243,7 @@
         app:srcCompat="@drawable/clock" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/SaveAll"
         android:layout_width="75dp"
         android:layout_height="52dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -252,6 +253,18 @@
         app:layout_constraintTop_toBottomOf="@+id/timeBtn"
         app:layout_constraintVertical_bias="0.879"
         app:srcCompat="@drawable/yellowtick" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timetv"
+        app:layout_constraintVertical_bias="0.361" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
