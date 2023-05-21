@@ -1,5 +1,7 @@
 package com.example.projecmad;
 
+import static com.example.projecmad.Service.TaskService.saveTask;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -7,27 +9,40 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.projecmad.Model.Task;
 import com.example.projecmad.Service.ListService;
 import com.example.projecmad.Utils.DatePicker;
 import com.example.projecmad.Utils.MyArrayAdapter;
 import com.example.projecmad.Utils.TimePicker;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     ImageView backbuttonImageView;
+    ImageView saveButton;
+    EditText taskNameTextBox;
+    EditText commentTextBox;
     TextView tvDate;
     TextView tvTime;
     ImageView btPickDate;
     ImageView btPickTime;
     Spinner spinner;
 
+
+    public static String taskName;
+    public static String comment;
+    public static String dueDate;
+    public static String time;
+    public  static String listNameToBeAssigned;
 
     private void openMainPage() {
         Intent intent = new Intent(this,MainActivity.class);
@@ -37,12 +52,18 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+        taskNameTextBox = (EditText) findViewById(R.id.taskNameTv);
+        commentTextBox =(EditText) findViewById(R.id.taskCommentTv);
+
         backbuttonImageView =(ImageView) findViewById(R.id.imageView2);
         tvDate = (TextView) findViewById(R.id.dateTv);
         tvTime =(TextView) findViewById(R.id.timetv);    // getting all the elements
         btPickDate = (ImageView) findViewById(R.id.calenderBtn);
         btPickTime = (ImageView) findViewById(R.id.timeBtn);
         spinner = (Spinner) findViewById(R.id.dropdown_menu_list);
+
+        saveButton = (ImageView) findViewById(R.id.SaveAll);
 
         tvTime.setVisibility(View.GONE);      //time text view and images not visible
         btPickTime.setVisibility(View.GONE);
@@ -59,6 +80,24 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.SaveAll){
+                    taskName=taskNameTextBox.getText().toString();
+                    comment = commentTextBox.getText().toString();
+                    dueDate =tvDate.getText().toString();
+                    time =tvTime.getText().toString();
+                    listNameToBeAssigned=spinner.getSelectedItem().toString();
+
+                    Task task = new Task(taskName,comment,Boolean.TRUE,dueDate,time);
+                    if (saveTask(task)[0]){
+                        Toast toast=Toast.makeText(getApplicationContext(),"Task Saved",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                  }
+                }
+        });
         btPickTime.setOnClickListener(view -> {
             TimePickerDialog timePickerDialog = new TimePickerDialog(
                     this,
