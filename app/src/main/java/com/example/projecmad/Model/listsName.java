@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class listsName {
 
+    public listsName(String name) {
+        this.name = name;
+    }
+
     public listsName(Long id, String name) {
         this.id = id;
         this.name = name;

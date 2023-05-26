@@ -1,10 +1,11 @@
 package com.example.projecmad;
 
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,15 +16,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projecmad.Model.TaskList;
 import com.example.projecmad.Model.Task;
+import com.example.projecmad.Model.listsName;
 import com.example.projecmad.Service.ListService;
+import com.example.projecmad.Service.TaskListService;
 import com.example.projecmad.Service.TaskService;
 import com.example.projecmad.Utils.DatePicker;
 import com.example.projecmad.Utils.MyArrayAdapter;
 import com.example.projecmad.Utils.TimePicker;
 
 import java.text.DateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -44,10 +47,12 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     public static String comment;
     public static String dueDate;
     public static String time;
-    public  static String listNameToBeAssigned;
+    public  static String listNametoBeAssigned;
 
     private void openMainPage() {
-        Intent intent = new Intent(this,MainActivity.class);
+//        Intent intent = new Intent(this,MainActivity.class);
+//        startActivity(intent);
+        Intent intent = new Intent(this,AllTasksActivty.class);
         startActivity(intent);
     }
     @Override
@@ -80,38 +85,52 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View view) {
                 openMainPage();
+
+
             }
         });
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.getId() == R.id.SaveAll){
-                    try{
-                        taskName=taskNameTextBox.getText().toString();
-                        comment = commentTextBox.getText().toString();
-                        dueDate =tvDate.getText().toString();
-                        time =tvTime.getText().toString();
-                        listNameToBeAssigned=spinner.getSelectedItem().toString();
+                if (view.getId() == R.id.SaveAll) {
 
-                        Task task = new Task(taskName,comment,checkBox.isChecked(),dueDate,time);
-                        TaskService taskService = new TaskService();
-                        if (!taskService.saveTask(task)){
+                    taskName = taskNameTextBox.getText().toString();
+                    comment = commentTextBox.getText().toString();
+                    dueDate = tvDate.getText().toString();
+                    time = tvTime.getText().toString();
+                    listNametoBeAssigned = spinner.getSelectedItem().toString();
+
+                    Task task = new Task(taskName, comment, checkBox.isChecked(), dueDate, time);
+                    listsName listsName = new listsName(listNametoBeAssigned);
+
+                    TaskList taskList1 = new TaskList(listsName, task);
+
+                    TaskService taskService = new TaskService();
+                    TaskListService taskListService = new TaskListService();
+
+                    try {
+                        if (!taskService.saveTask(task)) {
                             Toast.makeText(getApplicationContext(), "Tasked saved", Toast.LENGTH_SHORT).show();
+                           taskListService.saveTaskInList(taskList1);
+                                Toast.makeText(getApplicationContext(), "Tasked also saved in list" + String.format(listNametoBeAssigned), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Tasked could not be saved", Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Tasked alredy present", Toast.LENGTH_SHORT).show();
-                        }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
                     taskNameTextBox.getText().clear();
                     commentTextBox.getText().clear();
                     tvDate.setText("");
                     tvTime.setText("");
                     spinner.setSelection(0);
-                  }
 
                 }
+
+
+            }
 
         });
 
