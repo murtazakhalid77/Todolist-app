@@ -3,7 +3,6 @@ package com.example.projecmad.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class listsName {
-
     public listsName(String name) {
         this.name = name;
     }

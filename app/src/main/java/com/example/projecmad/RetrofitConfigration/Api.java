@@ -16,9 +16,12 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    String BASE_URL = " https://77e9-202-47-53-142.ngrok-free.app/api/";
+    String BASE_URL = "https://18f9-37-111-181-139.ngrok-free.app/api/";
     @GET("list/getAll")
     Call<List<listsName>> getAlllistNames();
+
+    @GET("todoList/{listName}")
+    Call<List<TaskList>> getTaskByListName(@Path("listName") String listName);
 
     @POST("saveTask/task")
     Call<Task> saveTask(@Body Task task);

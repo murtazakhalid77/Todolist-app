@@ -50,10 +50,10 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     public  static String listNametoBeAssigned;
 
     private void openMainPage() {
-//        Intent intent = new Intent(this,MainActivity.class);
-//        startActivity(intent);
-        Intent intent = new Intent(this,AllTasksActivty.class);
+        Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+//        Intent intent = new Intent(this,AllTasksActivty.class);
+//        startActivity(intent);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
