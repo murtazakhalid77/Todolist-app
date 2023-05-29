@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.example.projecmad.Model.listsName;
 import com.example.projecmad.RetrofitConfigration.RetrofitClient;
 import com.example.projecmad.Service.ListService;
+import com.example.projecmad.Service.TaskListService;
 import com.example.projecmad.Utils.MyArrayAdapter;
 
 import java.util.ArrayList;
@@ -39,6 +41,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openNewTaskPage ();
+
+            }
+        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TaskListService taskListService = new TaskListService();
+                if (!spinner.getSelectedItem().equals("Select List")) {
+
+                Intent intent = new Intent(MainActivity.this, AllTasksActivty.class);
+
+                intent.putExtra("selectedItem", parent.getItemAtPosition(position).toString());
+
+                startActivity(intent);
+                }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -51,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             spinner.setAdapter(adapter);
         }
     }
+
     public void openNewTaskPage(){
         Intent intent = new Intent(this, NewTask.class);
         startActivity(intent);
@@ -58,5 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+    }
+
 

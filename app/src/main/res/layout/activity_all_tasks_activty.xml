@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#274F88"
+    android:backgroundTint="#4A0055FF"
+    android:textAlignment="center"
     tools:context=".AllTasksActivty">
 
 
@@ -24,19 +26,23 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="50px"
-            android:layout_height="100px"
-            android:layout_marginBottom="2px"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/tick" />
+            android:id="@+id/imageView2"
+            android:layout_width="49dp"
+            android:layout_height="29dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.137"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
 
 
         <Spinner
             android:id="@+id/dropdown_menu_list"
-            android:layout_width="300px"
+            android:layout_width="400px"
             android:layout_height="80px"
-            android:layout_marginLeft="0.1in"
+            android:layout_marginLeft="0.2in"
             android:layout_marginTop="5px"
             android:spinnerMode="dropdown"
             android:textAlignment="center"
@@ -51,24 +57,46 @@
             app:layout_constraintVertical_bias="0.0" />
 
 
-
-
-
     </androidx.appcompat.widget.Toolbar>
-
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="391dp"
         android:layout_height="586dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
         android:background="#274F88"
+        android:divider="@color/white"
+        android:dividerHeight="2dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.779" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="123dp"
+        android:layout_height="36dp"
+        android:text="Tasks"
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/list_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.529" />
+
+    <TextView
+        android:id="@+id/tv_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No Tasks in this list"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

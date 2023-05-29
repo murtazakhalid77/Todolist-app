@@ -6,6 +6,7 @@ import com.example.projecmad.Model.Task;
 import com.example.projecmad.Model.listsName;
 
 import java.util.List;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface Api {
 
-    String BASE_URL = "https://18f9-37-111-181-139.ngrok-free.app/api/";
+    String BASE_URL = " https://02fb-202-47-60-102.ngrok-free.app/api/";
     @GET("list/getAll")
     Call<List<listsName>> getAlllistNames();
 
@@ -29,4 +30,9 @@ public interface Api {
     @POST("taskSave/taskList")
     Call<TaskList>  saveTaskInList(@Body TaskList taskList);
 
+    @GET("task/{description}")
+    Call<Task> getTaskByTaskDescription(@Path("description") String description);
+
+    @POST("list/saveList")
+    Call<listsName> saveList(@Body listsName listsName);
 }

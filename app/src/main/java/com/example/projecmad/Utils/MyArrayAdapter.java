@@ -9,6 +9,7 @@ import com.example.projecmad.Service.TaskListService;
 
 public class MyArrayAdapter extends ArrayAdapter<String> {
     private Context context;
+    public  String listName;
 
     public MyArrayAdapter(Context context,ListService listService) {
         super(context, android.R.layout.simple_list_item_1);
@@ -18,6 +19,7 @@ public class MyArrayAdapter extends ArrayAdapter<String> {
     public MyArrayAdapter(Context context,String listName,TaskListService taskListService) {
         super(context, android.R.layout.simple_list_item_1);
         this.context = context;
+        this.listName=listName;
         fecthTaskNames(taskListService,listName);
     }
     private void fecthTaskNames(TaskListService taskListService,String listName){

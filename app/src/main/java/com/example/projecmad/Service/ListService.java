@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.projecmad.MainActivity;
+import com.example.projecmad.Model.Task;
 import com.example.projecmad.Model.listsName;
 import com.example.projecmad.RetrofitConfigration.RetrofitClient;
 
@@ -45,6 +46,27 @@ public class ListService {
         });
 
         return future;
+    }
+
+    public  boolean saveList(listsName listsName) {
+        final boolean[] backendresponse = new boolean[1];
+        Call<listsName> call = RetrofitClient.getInstance().getMyApi().saveList(listsName);
+
+        call.enqueue(new Callback<listsName>() {
+            @Override
+            public void onResponse(Call<listsName> call, Response<listsName> response) {
+                if (response.isSuccessful()) {
+                    backendresponse[0] = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<listsName> call, Throwable t) {
+                backendresponse[0] = true;
+            }
+        });
+
+        return backendresponse[0];
     }
 
 

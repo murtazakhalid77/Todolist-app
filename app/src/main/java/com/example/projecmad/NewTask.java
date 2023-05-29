@@ -4,8 +4,10 @@ package com.example.projecmad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +43,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     ImageView btPickTime;
     Spinner spinner;
     CheckBox checkBox;
+    ImageView imageView;
 
 
     public static String taskName;
@@ -70,6 +73,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         btPickTime = (ImageView) findViewById(R.id.timeBtn);
         spinner = (Spinner) findViewById(R.id.dropdown_menu_list);
         checkBox =(CheckBox) findViewById(R.id.checkBox);
+        imageView=(ImageView) findViewById(R.id.newlListImage);
 
         saveButton = (ImageView) findViewById(R.id.SaveAll);
 
@@ -79,8 +83,21 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 //        MainActivity mainActivity = new MainActivity();
 //        mainActivity.getListNames();
 
+        Intent intent = getIntent();
+        taskNameTextBox.setText(intent.getStringExtra("taskDescription"));
+        commentTextBox.setText(intent.getStringExtra("taskComment"));
+        tvDate.setText(intent.getStringExtra("taskDueDate"));
+        tvTime.setText(intent.getStringExtra("taskTime"));
+
+
         TimePicker timePicker = new TimePicker(tvTime);
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showInputDialog();
+            }
+        });
         backbuttonImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,18 +124,20 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
                     TaskService taskService = new TaskService();
                     TaskListService taskListService = new TaskListService();
-
                     try {
                         if (!taskService.saveTask(task)) {
-                            Toast.makeText(getApplicationContext(), "Tasked saved", Toast.LENGTH_SHORT).show();
-                           taskListService.saveTaskInList(taskList1);
-                                Toast.makeText(getApplicationContext(), "Tasked also saved in list" + String.format(listNametoBeAssigned), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Tasked could not be saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Task saved", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Thread.sleep(5000); // Wait for 5 seconds
+
+                        if (!taskListService.saveTaskInList(taskList1)){
+                            Toast.makeText(getApplicationContext(), "Task also saved in list " + String.format(listNametoBeAssigned), Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
 
 
                     taskNameTextBox.getText().clear();
@@ -173,5 +192,35 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         tvDate.setText(selectedDate);
         tvTime.setVisibility(View.VISIBLE);
         btPickTime.setVisibility(View.VISIBLE);
+    }
+    private void showInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter New List Name");
+
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = input.getText().toString();
+                ListService listService = new ListService();
+                if (!listService.saveList(new listsName(name))) {
+                    Toast.makeText(getApplicationContext(), "List saved", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "List Cannot be saved", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
